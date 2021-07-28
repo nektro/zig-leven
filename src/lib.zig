@@ -15,7 +15,7 @@ const range = @import("range").range;
 //     );
 // }
 
-pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []const T) !usize {
+pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []const T, max: ?usize) !usize {
     if (std.mem.eql(T, a, b)) return 0;
 
     var left = a;
@@ -28,6 +28,10 @@ pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []con
 
     var ll = left.len;
     var rl = right.len;
+
+    if (max != null and rl - ll >= max.?) {
+        return max.?;
+    }
 
     {
         const sl = suffixLen(T, a, b);
@@ -67,6 +71,7 @@ pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []con
         }
     }
 
+    if (max != null and result >= max.?) return max.?;
     return result;
 }
 

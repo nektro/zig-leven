@@ -16,7 +16,7 @@ zigmod aq add 1/nektro/leven
 ```
 
 ## Usage
-`pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []const T) !usize`
+`pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []const T, max: ?usize) !usize`
 
 ## Future
 TODO Unicode support for strings
