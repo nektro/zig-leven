@@ -15,7 +15,7 @@ const range = @import("range").range;
 //     );
 // }
 
-pub fn leven(comptime T: type, alloc: *std.mem.Allocator, a: []const T, b: []const T, max: ?usize) !usize {
+pub fn leven(comptime T: type, alloc: std.mem.Allocator, a: []const T, b: []const T, max: ?usize) !usize {
     if (std.mem.eql(T, a, b)) return 0;
 
     var left = a;
