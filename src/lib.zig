@@ -53,17 +53,17 @@ pub fn leven(comptime T: type, alloc: std.mem.Allocator, a: []const T, b: []cons
     const array = try alloc.alloc(usize, ll);
     defer alloc.free(array);
 
-    for (range(ll)) |_, i| {
+    for (range(ll), 0..) |_, i| {
         charCodeCache[i] = left[start + i];
         array[i] = i + 1;
     }
 
-    for (range(rl)) |_, j| {
+    for (range(rl), 0..) |_, j| {
         const bCharCode = right[start + j];
         var temp = j;
         result = j + 1;
 
-        for (range(ll)) |_, i| {
+        for (range(ll), 0..) |_, i| {
             const temp2 = if (bCharCode == charCodeCache[i]) temp else temp + 1;
             temp = array[i];
             array[i] = if (temp > result) (if (temp2 > result) result + 1 else temp2) else (if (temp2 > temp) temp + 1 else temp2);
