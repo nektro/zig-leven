@@ -1,5 +1,4 @@
 const std = @import("std");
-const range = @import("range").range;
 
 // // the naïve recursive implementation
 // pub fn leven(comptime T: type, a: []const T, b: []const T) usize {
@@ -53,17 +52,17 @@ pub fn leven(comptime T: type, alloc: std.mem.Allocator, a: []const T, b: []cons
     const array = try alloc.alloc(usize, ll);
     defer alloc.free(array);
 
-    for (range(ll), 0..) |_, i| {
+    for (0..ll) |i| {
         charCodeCache[i] = left[start + i];
         array[i] = i + 1;
     }
 
-    for (range(rl), 0..) |_, j| {
+    for (0..rl) |j| {
         const bCharCode = right[start + j];
         var temp = j;
         result = j + 1;
 
-        for (range(ll), 0..) |_, i| {
+        for (0..ll) |i| {
             const temp2 = if (bCharCode == charCodeCache[i]) temp else temp + 1;
             temp = array[i];
             array[i] = if (temp > result) (if (temp2 > result) result + 1 else temp2) else (if (temp2 > temp) temp + 1 else temp2);
