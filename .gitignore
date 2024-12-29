@@ -1,6 +1,6 @@
-zig-cache
 .zig-cache
 zig-out
-/deps.zig
-/.zigmod
+deps.zig
+.zigmod
+files.zig
 zigmod.lock
