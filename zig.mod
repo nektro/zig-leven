@@ -3,3 +3,5 @@ name: leven
 main: src/lib.zig
 license: MIT
 description: Measure the difference between two slices using the Levenshtein distance algorithm
+root_dependencies:
+  - src: git https://github.com/nektro/zig-expect
