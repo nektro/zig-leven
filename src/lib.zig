@@ -14,7 +14,7 @@ const std = @import("std");
 //     );
 // }
 
-pub fn leven(comptime T: type, alloc: std.mem.Allocator, a: []const T, b: []const T, max: ?usize) !usize {
+pub fn leven(comptime T: type, backing_alloc: std.mem.Allocator, a: []const T, b: []const T, max: ?usize) !usize {
     if (std.mem.eql(T, a, b)) return 0;
 
     var left = a;
@@ -45,6 +45,9 @@ pub fn leven(comptime T: type, alloc: std.mem.Allocator, a: []const T, b: []cons
     if (ll == 0) return rl;
 
     var result: usize = 0;
+
+    var sfa = std.heap.stackFallback(4096, backing_alloc);
+    const alloc = sfa.get();
 
     const charCodeCache = try alloc.alloc(T, ll);
     defer alloc.free(charCodeCache);
