@@ -46,8 +46,9 @@ pub fn leven(comptime T: type, backing_alloc: std.mem.Allocator, a: []const T, b
 
     var result: usize = 0;
 
-    var sfa = std.heap.stackFallback(4096, backing_alloc);
-    const alloc = sfa.get();
+    var buf: [4096]u8 = undefined;
+    var sfa = std.heap.BufferFirstAllocator.init(&buf, backing_alloc);
+    const alloc = sfa.allocator();
 
     const charCodeCache = try alloc.alloc(T, ll);
     defer alloc.free(charCodeCache);
